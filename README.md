@@ -939,18 +939,18 @@ The backend API is available at **http://18.60.19.96:8000** with auto-generated 
 
 ---
 
-### Production Deployment (AWS EC2)
+### Production Deployment (AWS)
 
-1. **Environment Setup**: Ensure your AWS RDS and ElastiCache are reachable from the EC2.
-2. **Secrets**: Update the root `.env` with your production secrets.
-3. **One-Command Deploy**:
-   ```bash
-   chmod +x deploy_production.sh
-   ./deploy_production.sh
-   ```
-4. **Monitoring**:
-   - `docker compose logs -f`
-   - `docker ps`
+For a detailed, step-by-step guide on how to deploy this application to AWS using a scalable and automated architecture, please refer to the:
+
+👉 **[Incremental AWS Deployment Guide](AWS_DEPLOYMENT_GUIDE.md)**
+
+This guide covers:
+- **Phase 1**: Bare-metal deployment on a single EC2 (IP:PORT).
+- **Phase 2**: Adding Nginx reverse proxy (IP:80).
+- **Phase 3**: Auto Scaling and Load Balancing (ALB).
+- **Phase 4**: CI/CD setup with GitHub Actions and ECR.
+
 
 
 ### Phase 2 Feature Highlights

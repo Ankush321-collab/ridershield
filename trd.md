@@ -1727,7 +1727,7 @@ ADMIN_USERNAME=admin
 ADMIN_PASSWORD=changeme
 ```
 
-### 12.3 Quick Start
+### 12.3 Quick Start (Local)
 
 ```bash
 # Clone and start
@@ -1746,6 +1746,13 @@ curl http://localhost:8000/health
 # Open API docs
 # http://localhost:8000/docs
 ```
+
+### 12.4 Production Deployment (AWS)
+
+For production-grade deployment on AWS (EC2, RDS, ElastiCache, ALB, ASG, CI/CD), follow the step-by-step instructions in the:
+
+👉 **[Incremental AWS Deployment Guide](AWS_DEPLOYMENT_GUIDE.md)**
+
 
 ---
 

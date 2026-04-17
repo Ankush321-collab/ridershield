@@ -7,6 +7,7 @@ on:
     paths:
       - "backend/**"
       - "admin/**"
+      - "mobile/**"
       - "docker-compose.yml"
       - "ops/nginx/**"
       - ".github/workflows/cd-ec2.yml"
@@ -29,9 +30,9 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
-          source: "docker-compose.yml,backend,admin,ops"
+          source: "docker-compose.yml,backend,admin,mobile,ops"
           target: "/opt/ridershield"
-          rm: true
+          rm: false
 
       - name: Deploy on EC2
         uses: appleboy/ssh-action@v1.2.0

@@ -3,7 +3,7 @@ services:
   neo4j:
     image: neo4j:5-community
     environment:
-      NEO4J_AUTH: neo4j/zylo12345
+      NEO4J_AUTH: ${NEO4J_AUTH:-neo4j/zylo12345}
     ports:
       - "7474:7474"
       - "7687:7687"
@@ -23,7 +23,6 @@ services:
       dockerfile: Dockerfile.prod
     env_file:
       - .env
-      - ./backend/.env
     # Uses DATABASE_URL and REDIS_URL from .env
     command: python -m scripts.setup
     restart: "no"
@@ -37,9 +36,6 @@ services:
       - "8000:8000"
     env_file:
       - .env
-      - ./backend/.env
-    environment:
-      ML_SERVICE_URL: http://ml:8001
     depends_on:
       setup:
         condition: service_completed_successfully
@@ -54,9 +50,6 @@ services:
       dockerfile: Dockerfile.prod
     env_file:
       - .env
-      - ./backend/.env
-    environment:
-      ML_SERVICE_URL: http://ml:8001
     depends_on:
       setup:
         condition: service_completed_successfully
@@ -78,10 +71,19 @@ services:
       dockerfile: Dockerfile.prod
     env_file:
       - .env
-      - ./admin/.env
     environment:
       PORT: 3000
       HOSTNAME: 0.0.0.0
+    depends_on:
+      backend:
+        condition: service_started
+    restart: unless-stopped
+
+  # ─── Mobile Web App ─────────────────────────────────
+  mobile_web:
+    build:
+      context: ./mobile
+      dockerfile: Dockerfile.prod
     depends_on:
       backend:
         condition: service_started
@@ -92,6 +94,7 @@ services:
     image: nginx:1.27-alpine
     ports:
       - "80:80"
+      - "4000:4000"
     volumes:
       - ./ops/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
       - upload_data:/var/www/uploads:ro
@@ -99,6 +102,8 @@ services:
       admin:
         condition: service_started
       backend:
+        condition: service_started
+      mobile_web:
         condition: service_started
     restart: unless-stopped
 

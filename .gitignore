@@ -41,6 +41,11 @@ mobile-live.log
 # Identity/SSH keys
 mykey
 mykey.pub
+ridershield_deploy
+ridershield_deploy.pub
+mobile/ridershield_deploy
+mobile/ridershield_deploy.pub
+*.pem
 
 # System/IDE
 .DS_Store

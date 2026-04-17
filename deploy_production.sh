@@ -14,6 +14,6 @@ echo "🧹 cleaning up old images..."
 docker image prune -f
 
 echo "✅ deployment complete!"
-echo "📡 Admin Dashboard: http://18.60.19.96"
-echo "📱 Mobile Web App: http://18.60.19.96:4000"
-echo "🩺 Backend Health: http://18.60.19.96/health"
+echo "📡 Admin Dashboard:  http://18.60.19.96"
+echo "📱 Mobile Web App:   http://18.60.19.96/app"
+echo "🩺 Backend Health:   http://18.60.19.96/health"

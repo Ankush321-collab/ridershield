@@ -94,7 +94,6 @@ services:
     image: nginx:1.27-alpine
     ports:
       - "80:80"
-      - "4000:4000"
     volumes:
       - ./ops/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
       - upload_data:/var/www/uploads:ro

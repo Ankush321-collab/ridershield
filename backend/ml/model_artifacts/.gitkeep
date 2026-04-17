@@ -1,0 +1,2 @@
+# Dev 2: ML model artifacts directory
+# After training, place risk_model.pkl and feature_names.json here.

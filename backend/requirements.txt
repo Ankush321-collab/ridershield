@@ -1,0 +1,42 @@
+# Core
+fastapi==0.111.0
+uvicorn[standard]==0.30.1
+pydantic==2.7.4
+pydantic-settings==2.3.4
+
+# Database
+sqlalchemy==2.0.31
+asyncpg==0.29.0
+
+alembic==1.13.1
+
+# Redis
+redis==5.0.7
+
+# Auth
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+
+# ML
+lightgbm==4.4.0
+scikit-learn==1.5.1
+joblib==1.4.2
+numpy==1.26.4
+pandas==2.2.2
+
+# Scheduler
+apscheduler==3.10.4
+
+# External APIs
+httpx==0.27.0
+openai>=1.0.0,<2
+
+# Image/EXIF
+Pillow==10.4.0
+exifread==3.0.0
+
+# File uploads
+python-multipart==0.0.9
+
+# Utilities
+python-dotenv==1.0.1

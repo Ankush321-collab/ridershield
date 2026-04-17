@@ -1,0 +1,60 @@
+name: CD - Deploy To EC2
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+    paths:
+      - "backend/**"
+      - "admin/**"
+      - "docker-compose.yml"
+      - "ops/nginx/**"
+      - ".github/workflows/cd-ec2.yml"
+
+concurrency:
+  group: deploy-ec2
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Copy files to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+          source: "docker-compose.yml,backend,admin,ops"
+          target: "/opt/ridershield"
+          rm: true
+
+      - name: Deploy on EC2
+        uses: appleboy/ssh-action@v1.2.0
+        env:
+          BACKEND_ENV_FILE: ${{ secrets.BACKEND_ENV_FILE }}
+          ADMIN_ENV_FILE: ${{ secrets.ADMIN_ENV_FILE }}
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+          envs: BACKEND_ENV_FILE,ADMIN_ENV_FILE
+          script_stop: true
+          script: |
+            set -e
+            cd /opt/ridershield
+
+            if [ -n "$BACKEND_ENV_FILE" ]; then
+              printf "%s\n" "$BACKEND_ENV_FILE" > backend/.env
+            fi
+
+            if [ -n "$ADMIN_ENV_FILE" ]; then
+              printf "%s\n" "$ADMIN_ENV_FILE" > admin/.env
+            fi
+
+            docker compose up -d --build --remove-orphans
+            docker image prune -f

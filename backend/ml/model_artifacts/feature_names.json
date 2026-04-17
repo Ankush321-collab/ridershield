@@ -1,0 +1,1 @@
+{"features": ["zone_flood_risk", "zone_traffic_risk", "zone_store_risk", "day_of_week", "hour", "is_weekend", "is_monsoon", "rider_tenure_days", "rider_avg_earnings", "rider_order_consistency", "forecast_rainfall", "forecast_aqi"], "model_version": "rule-model-demo-v1", "trained_at": "2026-04-04T06:34:26.082552+00:00", "training_records": 50000}
